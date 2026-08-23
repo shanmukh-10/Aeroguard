@@ -17,8 +17,14 @@ from ml.aqi_calculator import calculate_overall_aqi, calculate_sub_index, get_aq
 
 
 class AeroGuardPredictor:
-    def __init__(self, model_dir: str = 'models'):
-        self.model_dir = model_dir
+    def __init__(self, model_dir: Optional[str] = None):
+        if model_dir is None:
+            # Anchor to repository root directory
+            repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            candidate = os.path.join(repo_root, 'models')
+            self.model_dir = candidate if os.path.exists(candidate) else 'models'
+        else:
+            self.model_dir = model_dir
         self.rf_model = None
         self.feature_cols = None
         self.metrics = None

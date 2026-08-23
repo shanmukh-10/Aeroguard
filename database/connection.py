@@ -19,6 +19,10 @@ DATABASE_URL = os.getenv(
     "postgresql://postgres:postgres@localhost:5432/aeroguard"
 )
 
+# Render and cloud providers supply 'postgres://', SQLAlchemy 2.0 requires 'postgresql://'
+if DATABASE_URL.startswith("postgres://"):
+    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 # SQLite or PostgreSQL engine initialization
 try:
     if DATABASE_URL.startswith("sqlite"):
