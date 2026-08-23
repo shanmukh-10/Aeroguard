@@ -81,6 +81,33 @@ async def add_process_time_header(request: Request, call_next):
     return response
 
 
+@app.get("/", tags=["System"])
+def root():
+    """Root endpoint welcoming visitors and directing to interactive documentation."""
+    return {
+        "status": "online",
+        "service": settings.PROJECT_NAME,
+        "title": settings.PROJECT_TITLE,
+        "version": settings.VERSION,
+        "environment": settings.ENVIRONMENT,
+        "docs_url": "/docs",
+        "health_url": "/health",
+        "endpoints": {
+            "current_aqi": "/api/current",
+            "forecast": "/api/forecast?hours=12",
+            "history": "/api/history?timeframe=24h",
+            "hotspots": "/api/hotspots",
+            "alerts": "/api/alerts",
+            "sensors": "/api/sensors",
+            "nearest_station": "/api/nearest-station?lat=28.6315&lon=77.2167",
+            "geocode": "/api/geocode?q=Hyderabad",
+            "reverse_geocode": "/api/reverse-geocode?lat=28.6315&lon=77.2167",
+            "source_pattern": "/api/source-pattern",
+            "model_metrics": "/api/model-metrics"
+        }
+    }
+
+
 @app.get("/health", tags=["System"])
 def health_check():
     """System health check endpoint."""
