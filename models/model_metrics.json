@@ -1,0 +1,54 @@
+{
+  "target": "Future PM2.5 (2-hour forecast horizon)",
+  "frequency": "15 minutes",
+  "dataset": "Delhi DTU-CPCB (2024-2025)",
+  "train_samples": 51103,
+  "test_samples": 12776,
+  "best_model": "Random Forest (Residual Regressor)",
+  "models": {
+    "persistence_baseline": {
+      "model_name": "Persistence Baseline",
+      "mae": 30.468,
+      "rmse": 60.895,
+      "r2": 0.7629,
+      "training_time_seconds": 0.0,
+      "inference_latency_ms": 0.0,
+      "sample_count": 12752
+    },
+    "random_forest": {
+      "model_name": "Random Forest (Residual Regressor)",
+      "mae": 28.991,
+      "rmse": 57.317,
+      "r2": 0.7899,
+      "training_time_seconds": 17.11,
+      "inference_latency_ms": 0.0054,
+      "top_features": {
+        "pm25_lag_1": 0.2732,
+        "pm25_diff_1h": 0.122,
+        "pm25_diff_4h": 0.0656,
+        "pm25_lag_32": 0.037,
+        "hour_cos": 0.032,
+        "pm10_roll_mean_24h": 0.0315,
+        "pm10_lag_4": 0.0294,
+        "pm25_lag_4": 0.0288,
+        "so2_lag_1": 0.0278,
+        "pm25_roll_std_24h": 0.0265
+      },
+      "sample_count": 12752,
+      "mae_improvement_pct": 4.85,
+      "rmse_improvement_pct": 5.88
+    },
+    "lstm": {
+      "model_name": "LSTM Neural Network",
+      "mae": 47.211,
+      "rmse": 92.477,
+      "r2": 0.4534,
+      "training_time_seconds": 159.05,
+      "inference_latency_ms": 0.049,
+      "sample_count": 12760,
+      "epochs": 12,
+      "mae_improvement_pct": -54.95,
+      "rmse_improvement_pct": -51.86
+    }
+  }
+}
